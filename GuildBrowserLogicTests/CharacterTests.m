@@ -35,12 +35,14 @@
     STAssertNotNil(json, @"invalid test data");
     
     _characterDetailJson = json;
+    _testGuy = [[Character alloc] initWithCharacterDetailData:_characterDetailJson];
 }
 
 
 -(void)tearDown {
     // 6
     _characterDetailJson = nil;
+    _testGuy = nil;
 }
 
 
@@ -48,19 +50,18 @@
 - (void)testCreateCharacterFromDetailJson
 {
     // 2
-    Character *testGuy1 = [[Character alloc] initWithCharacterDetailData:_characterDetailJson];
-    STAssertNotNil(testGuy1, @"Could not create character from detail json");
+    STAssertNotNil(_testGuy, @"Could not create character from detail json");
     
     // 3
-    Character *testGuy2 = [[Character alloc] initWithCharacterDetailData:nil];
-    STAssertNotNil(testGuy2, @"Could not create character from nil data");
+    STAssertNotNil(_testGuy, @"Could not create character from nil data");
 }
 
 
 // 1
 - (void)testCreateCharacterFromDetailJsonProps
 {
-    STAssertEqualObjects(_testGuy.thumbnail, @"borean- tundra/171/40508075-avatar.jpg", @"thumbnail url is wrong"); STAssertEqualObjects(_testGuy.name, @"Hagrel", @"name is wrong");
+    STAssertEqualObjects(_testGuy.thumbnail, @"borean-tundra/171/40508075-avatar.jpg", @"thumbnail url is wrong");
+    STAssertEqualObjects(_testGuy.name, @"Hagrel", @"name is wrong");
     STAssertEqualObjects(_testGuy.battleGroup, @"Emberstorm", @"battlegroup is wrong");
     STAssertEqualObjects(_testGuy.realm, @"Borean Tundra", @"realm is wrong");
     STAssertEqualObjects(_testGuy.achievementPoints, @3130,
